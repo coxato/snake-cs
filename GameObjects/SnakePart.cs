@@ -21,6 +21,7 @@ namespace snake_cs.GameObjects
         public void Deconstruct(out int iPos, out int jPos){
             iPos = this.iPos;
             jPos = this.jPos;
+            // character = this.character; 
         }
 
     }

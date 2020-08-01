@@ -1,5 +1,4 @@
-﻿using System;
-using snake_cs.GameObjects;
+﻿using snake_cs.GameObjects;
 using static System.Console;
 
 namespace snake_cs
@@ -8,8 +7,8 @@ namespace snake_cs
     {
         static void Main(string[] args)
         {
-            Snake s = new Snake(0, 0);
-            WriteLine(s.SnakeBodyParts[0].character);
+            Board b = new Board(10, 20);
+
         }
     }
 }

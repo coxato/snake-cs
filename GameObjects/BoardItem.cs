@@ -1,5 +1,8 @@
 namespace snake_cs.GameObjects
 {
+    // ===== TODO =====
+    // just pass one parameter to determinate if item is food, bomb, time, etc
+
     // father class
     public class BoardItem
     {
@@ -9,7 +12,7 @@ namespace snake_cs.GameObjects
         public bool IsUsed = false;
         public bool IsVisible = false;
 
-        public BoardItem(string name, char character, int points){
+        public BoardItem(string name, char character = '$', int points = 3){
             (Name, Character, Points) = (name, character, points);
         }
 
@@ -18,7 +21,7 @@ namespace snake_cs.GameObjects
         }
 
         public void setVisible(){
-            IsUsed = true;
+            IsVisible = true;
         }
     }
 
@@ -27,7 +30,7 @@ namespace snake_cs.GameObjects
     // food item
     public class Food : BoardItem{
         
-        public Food(string name, char character, int points = 3) : base(name, character, points){}
+        public Food(string name, char character = '$', int points = 3) : base(name, character, points){}
         
     }
 

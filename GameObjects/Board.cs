@@ -1,7 +1,9 @@
+using System;
+using System.Linq;
 using static System.Console;
 using System.Collections.Generic;
 // my entities
-using snake_cs.Utils;
+using static snake_cs.Utils.Utils;
 
 namespace snake_cs.GameObjects
 {
@@ -13,12 +15,14 @@ namespace snake_cs.GameObjects
         public char[,] board;
         private Dictionary<string, BoardItem> BoardItems = new Dictionary<string, BoardItem>();
 
+
         public Board(int rows = 10, int collumns = 10, char character = '.'){
             (Rows, Collumns, Character) = (rows, collumns, character);
             initBoard();
             initBoardItems();
             print();
         }
+
 
         // fill the board with character, default '.'
         private void initBoard(){
@@ -32,39 +36,55 @@ namespace snake_cs.GameObjects
             }
         }
 
+
         // just initialize the board items objects
         private void initBoardItems(){
-            BoardItems.Add("food", new Food("food", '@'));
+            BoardItems.Add("food", new Food("food"));
         }
 
-        private void putItemsInBoard(){
-            // check for a whitespace and put in the item
-            void checkWhiteSpaceAndPutIn(BoardItem item){
-                while(true){
-                    var (iPos, jPos) = Utils.Utils.randomBoardPosition(Rows, Collumns);
+
+        // use the item in board
+        public void useItem(string itemName){
+            BoardItem item = BoardItems[itemName];
+            item.setUse();
+        }
+
+
+        // check for a whitespace and put in the item
+        private void checkWhiteSpaceAndPutIn(BoardItem item){
+            while(true){
+                    var (iPos, jPos) = randomBoardPosition(Rows, Collumns);
                     if(board[iPos, jPos] == Character ){
                         item.setVisible();
                         board[iPos, jPos] = item.Character;
                         break;
                     }
-                }
             }
+        }
 
-            foreach (var item in BoardItems)
+
+        private void putItemsInBoard(){
+
+            foreach (var item in BoardItems.Values.ToList())
             {
-                if(!item.Value.IsVisible){
-                    checkWhiteSpaceAndPutIn(item.Value);
+                if(!item.IsVisible){
+                    checkWhiteSpaceAndPutIn(item);
                 }
                 // create new item
-                else if(item.Value.IsUsed && item.Value.IsVisible){
+                else if(item.IsUsed && item.IsVisible){
                     // TODO: add board items with a Items class dictonary or something like that
-                    BoardItem newItem = new BoardItem("food", '@', 3);
-                    BoardItems.Add(item.Key, newItem);
+                    Food newItem = new Food("food");
+                    BoardItems["food"] = newItem;
                     checkWhiteSpaceAndPutIn(newItem);
                 }
             }
-        
         }
+
+
+        public char getCharacterInPositions(int i, int j){
+            return board[i, j];
+        }
+        
 
         private void print(){
             Clear();
@@ -86,6 +106,7 @@ namespace snake_cs.GameObjects
 
             WriteLine(boardStr);
         }
+
 
         // update board matrix
         public void update(Snake snake, bool isFirstPrint = false){

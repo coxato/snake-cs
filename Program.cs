@@ -1,5 +1,6 @@
-﻿using snake_cs.GameObjects;
+﻿using static System.Threading.Thread;
 using static System.Console;
+using snake_cs.App;
 
 namespace snake_cs
 {
@@ -7,8 +8,8 @@ namespace snake_cs
     {
         static void Main(string[] args)
         {
-            Board b = new Board(10, 20);
-
+            GameController game = new GameController();
+            game.play();
         }
     }
 }

@@ -1,6 +1,7 @@
 # snake-cs
 Classic snake game in c#
-This project is to apply what I have learned in a c # course.
+
+This project is to apply what I have learned in a c# course.
 
 I like c# more than java.
 
